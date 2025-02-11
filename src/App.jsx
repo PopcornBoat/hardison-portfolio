@@ -10,12 +10,14 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="pt-16"> {/* Push content down to avoid overlap */}
-        <Routes>
-          <Route path="/" element={<><Hero /><About /><Projects /><Contact /><Footer /></>} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+      <div className="pt-16 px-4"> {/* Prevents overlap & adds padding */}
+        <div className="max-w-4xl mx-auto"> {/* Centers content */}
+          <Routes>
+            <Route path="/" element={<><Hero /><About /><Projects /><Contact /><Footer /></>} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
