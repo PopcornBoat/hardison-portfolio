@@ -5,6 +5,7 @@ const Hero = () => (
       <p className="text-lg md:text-xl text-gray-600 mt-4">
         Full-Stack Developer | Ethical Hacker | AI Enthusiast | Problem Solver | Researcher
       </p>
+      <img src="profile.jpg" alt="profile-photo" className="profile"></img>
     </section>
   );
   

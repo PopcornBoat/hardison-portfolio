@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Header = () => (
   <header className="bg-light shadow-sm fixed-top">
     <nav className="navbar navbar-expand-md navbar-light container">
-      <NavLink to="/" className="navbar-brand fw-bold">My Portfolio</NavLink>
+      <NavLink to="/" className="navbar-brand fw-bold">Hardison Wang</NavLink>
       <button 
         className="navbar-toggler" 
         type="button" 
