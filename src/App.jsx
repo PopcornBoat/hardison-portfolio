@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className="container p-5 my-5 d-flex align-self-centerv">
+      <main className="container-fluid min-vh-100 p-5 my-5 d-flex justify-content-center">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
