@@ -9,7 +9,10 @@ jobs:
     name: Run CodeQL Analysis
     runs-on: ubuntu-latest
     permissions:
-      security-events: write-all
+      security-events: write
+      actions: write
+      pull-requests: write
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
