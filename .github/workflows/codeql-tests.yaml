@@ -46,7 +46,7 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-    auto_merge:
+  auto_merge:
     name: Auto Merge if Successful
     runs-on: ubuntu-latest
     needs: run_tests
