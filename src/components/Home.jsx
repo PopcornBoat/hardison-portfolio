@@ -16,11 +16,18 @@ const Home = () => {
             {/* Weather Info */}
             {weather ? (
                 <div className="mb-4 p-3 bg-light border rounded">
-                    <h3>Weather in {weather.city}, {weather.country}</h3>
-                    <p><strong>Temperature:</strong> {weather.temp}°C (Min: {weather.temp_min}°C, Max: {weather.temp_max}°C)</p>
-                    <p><strong>Humidity:</strong> {weather.humidity}%</p>
-                    <p><strong>Wind:</strong> {weather.wind_speed} m/s, {weather.wind_deg}°</p>
-                </div>
+                <h3>Weather in {weather.city}, {weather.country}</h3>
+                <p>
+                    <strong>Temperature:</strong> {weather.temperature.current}°C 
+                    (Feels like: {weather.temperature.feels_like}°C, 
+                    Min: {weather.temperature.min}°C, Max: {weather.temperature.max}°C)
+                </p>
+                <p><strong>Humidity:</strong> {weather.humidity}%</p>
+                <p>
+                    <strong>Wind:</strong> {weather.wind.speed} m/s, {weather.wind.direction}°
+                </p>
+            </div>
+            
             ) : (
                 <p>Loading weather...</p>
             )}
