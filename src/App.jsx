@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
 import Resume from "./components/Resume";
+import PostList from "./components/PostList";
+import PostDetail from "./components/PostDetail";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/posts" element={<PostList />} />
+          <Route path="/post/:postId" element={<PostDetail />} />
           <Route path="/resume" element={<Resume />} />
         </Routes>
       </main>
