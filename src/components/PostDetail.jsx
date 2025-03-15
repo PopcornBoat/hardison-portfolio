@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+
 const validPostIds = [1];
 
 const PostDetail = () => {
     const { postId } = useParams();
     const [error, setError] = useState(false);
-    const navigate = useNavigate(); 
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const [iframeSize, setIframeSize] = useState({
         width: window.innerWidth, // Initial width of window
@@ -31,23 +33,38 @@ const PostDetail = () => {
 
 
     useEffect(() => {
-        // Check if the postId exists in the validPostIds array
-        if (!validPostIds.includes(Number(postId))) {
-            setError('Post not found'); // If the ID doesn't exist, set error state
-        }
+        setTimeout(() => {
+            if (!validPostIds.includes(Number(postId))) {
+                setError('Post not found');
+            }
+            setLoading(false);
+        }, 1000); // Simulating a network delay of 1 second
     }, [postId]);
 
     const handleBack = () => {
         navigate('/posts'); // Go back to the posts list page
     };
 
+    if (loading) {
+        return (
+            <div className="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="mt-3">Checking post...</p>
+            </div>
+        );
+    }
+
     if (error) {
         return (
-          <div>
-            <h2>404 - Post Not Found</h2>
-            <p>The post you are looking for does not exist.</p>
-            <button onClick={handleBack}>Back to Post List</button>
-          </div>
+            <div className="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+                <h2 className="text-danger">404 - Post Not Found</h2>
+                <p className="text-muted">The post you are looking for does not exist.</p>
+                <button className="btn btn-primary mt-3" onClick={handleBack}>
+                    Back to Post List
+                </button>
+            </div>
         );
     }
 
