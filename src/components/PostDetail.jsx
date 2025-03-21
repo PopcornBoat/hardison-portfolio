@@ -8,6 +8,7 @@ const PostDetail = () => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const [src, setSrc] = useState("");
 
     const [iframeSize, setIframeSize] = useState({
         width: window.innerWidth, // Initial width of window
@@ -31,16 +32,32 @@ const PostDetail = () => {
         };
     }, []); // Empty dependency array ensures this runs only on mount/unmount
 
-
     useEffect(() => {
-        setTimeout(() => {
-            if (!validPostIds.includes(Number(postId))) {
-                setError('Post not found');
+        const checkFileExists = async () => {
+          try {
+            const response = await fetch(
+              `https://express-netlify-deploy-demo.netlify.app/.netlify/functions/api/posts/${postId}`,
+              { method: "HEAD" } // Check if the file exists without downloading it
+            );
+    
+            if (!response.ok) {
+              throw new Error("Post not found");
             }
+    
+            setSrc(
+              `https://express-netlify-deploy-demo.netlify.app/.netlify/functions/api/posts/${postId}`
+            );
+          } catch (err) {
+            setError(err.message);
+          } finally {
             setLoading(false);
-        }, 1000); // Simulating a network delay of 1 second
-    }, [postId]);
+          }
+        };
+    
+        checkFileExists();
+      }, [postId]);
 
+    console.log(src);
     const handleBack = () => {
         navigate('/posts'); // Go back to the posts list page
     };
@@ -70,10 +87,9 @@ const PostDetail = () => {
 
     return (
         <div className="w-100">
-            <h2 className="text-center">Post {postId}</h2>
             {/* Iframe with dynamic size */}
             <iframe
-                src={`/${postId}.html`} // Make sure your HTML files are in `public/posts/`
+                src={`${src}`} // Make sure your HTML files are in `public/posts/`
                 width={iframeSize.width} // Set width dynamically based on window size
                 height={iframeSize.height} // Set height dynamically based on window size
                 frameBorder="0"

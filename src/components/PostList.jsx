@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import posts from "../assets/dummyPosts";
 
 const PostList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [awsPosts, setPosts] = useState(null);
+
+  useEffect(() => {
+    fetch("https://express-netlify-deploy-demo.netlify.app/.netlify/functions/api/posts")
+      .then((response) => response.json())
+      .then((data) => setPosts(data))
+      .catch((error) => console.error("Error fetching posts:", error));
+  }, []);
+  
 
   // Filter posts based on selected filter and search query
   const filteredPosts = posts
@@ -13,6 +22,8 @@ const PostList = () => {
       return post.category === selectedFilter;
     })
     .filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
+
 
   return (
     <div className="container mt-4">
@@ -50,12 +61,12 @@ const PostList = () => {
                 className="card-img-top"
               />
               <div className="card-body">
-                <h5 className="card-title">{post.title}</h5>
+                <h5 className="card-title">{awsPosts?.files?.[1] || "Loading..."}</h5>
                 <p className="card-text">{post.excerpt}</p>
                 <p className="card-meta text-muted">
                   By {post.author} | {new Date(post.date).toLocaleDateString()}
                 </p>
-                <Link to={`/post/${post.id}`} className="btn btn-primary">
+                <Link to={`/post/${awsPosts?.files?.[1] || "Loading..."}`} className="btn btn-primary">
                   View Details
                 </Link>
               </div>
